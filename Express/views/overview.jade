@@ -1,0 +1,41 @@
+extends layout
+
+block content
+  #overview
+    #reg-comp
+      h2= "Visitors League"
+      table
+        tr
+          th= "Naam"
+          th= "Leeftijd"
+          th= "Tijd"
+        each time in data.visitorTimes
+          tr 
+            td= `${time.firstName} ${time.lastName}`
+            td= `${time.age}`
+            td= `${time.time}`
+    #pro-comp
+      h2= "Pro League"
+      table
+        tr
+          th= "Naam"
+          th= "Leeftijd"
+          th= "Tijd"
+        each time in data.proTimes
+          tr 
+            td= `${time.firstName} ${time.lastName}`
+            td= `${time.age}`
+            td= `${time.time}`
+    #updates
+      h2= "Laatst toegevoegd:"
+      if data.lastTime != null
+        table
+            tr
+              th= "Naam"
+              th= "Leeftijd"
+              th= "Tijd"
+            tr 
+              td= `${data.lastTime.firstName} ${data.lastTime.lastName}`
+              td= `${data.lastTime.age}`
+              td= `${data.lastTime.time}`
+
