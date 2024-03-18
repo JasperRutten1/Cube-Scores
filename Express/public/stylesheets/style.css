@@ -49,3 +49,31 @@ table{
   font-size: 1.3rem;
   margin: 0 1rem;
 }
+
+table#last{
+  font-size: 1.5rem;
+}
+
+.fieldcontainer fieldset{
+  display: flex;
+  flex-direction: row;
+  height: 2rem;
+  font-size: 1.3rem;
+}
+
+.fieldcontainer fieldset label{
+  width: 20%;
+}
+
+.fieldcontainer fieldset input{
+  width: 80%;
+}
+
+#submit{
+  width: 100%;
+}
+
+#submit input{
+  width: 100%;
+  font-size: 1.3rem;
+}

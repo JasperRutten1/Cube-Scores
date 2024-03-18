@@ -13,14 +13,24 @@ router.get('/', (req, res, next) => {
   res.send(data);
 });
 
-router.get('/add/:time/:firstName/:lastName/:age/:pro', (req, res, next) => {
-  let params = req.params;
-  addTime(params.time, params.firstName, params.lastName, params.age, params.pro);
-  res.send(data);
+// router.get('/add/:time/:firstName/:lastName/:age/:pro', (req, res, next) => {
+//   let params = req.params;
+//   addTime(params.time, params.firstName, params.lastName, params.age, params.pro);
+//   res.send(data);
+// })
+
+router.post('/add', (req, res, next) => {
+  console.log(req.body);
+  addTime(req.body.time, req.body.firstName, req.body.lastName, req.body.age, req.body.pro);
+  res.redirect('controller');
 })
 
 router.get('/overview', (req, res, next) => {
   res.render('overview', {title: "Overview", data: data});
+});
+
+router.get('/controller', (req, res, next) => {
+  res.render('controller', {title: "Controller"});
 });
 
 /*

@@ -1,0 +1,29 @@
+extends layout
+
+block content
+  h1= title
+  if message != null
+    p= message
+  form(action="/times/add", method="post") 
+    div.fieldcontainer
+      fieldSet(data-role="controlgroup")
+        label(for='firstName') Voornaam:
+        input(id="firstName",type="text",name="firstName")
+    div.fieldcontainer
+      fieldSet(data-role="controlgroup")
+        label(for='lastName') Achternaam:
+        input(id="lastName",type="text",name="lastName")
+    div.fieldcontainer
+      fieldSet(data-role="controlgroup")
+        label(for='age') Leeftijd:
+        input(id="age",type="number",name="age")
+    div.fieldcontainer
+      fieldSet(data-role="controlgroup")
+        label(for='time') Tijd (in miliseconden):
+        input(id="time",type="number",name="time")
+    div.fieldcontainer
+      fieldSet(data-role="controlgroup")
+        label(for='pro') Pro?:
+        input(id="pro",type="checkbox",name="pro",value="true")
+    div#submit 
+      input(type='submit',value='Toevoegen', data-transition='fade', data-theme='c')

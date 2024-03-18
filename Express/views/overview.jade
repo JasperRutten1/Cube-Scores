@@ -29,13 +29,13 @@ block content
     #updates
       h2= "Laatst toegevoegd:"
       if data.lastTime != null
-        table
-            tr
-              th= "Naam"
-              th= "Leeftijd"
-              th= "Tijd"
-            tr 
-              td= `${data.lastTime.firstName} ${data.lastTime.lastName}`
-              td= `${data.lastTime.age}`
-              td= `${data.lastTime.time}`
+        table#last
+          tr
+            th= "Naam"
+            th= "Leeftijd"
+            th= "Tijd"
+          tr 
+            td= `${data.lastTime.firstName} ${data.lastTime.lastName}`
+            td= `${data.lastTime.age}`
+            td= `${data.lastTime.time}`
 
