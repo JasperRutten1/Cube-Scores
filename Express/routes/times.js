@@ -1,12 +1,27 @@
 var express = require('express');
 var router = express.Router();
 
-const data = {
-    lastUpdated: new Date(),
-    visitorTimes: [],
-    proTimes: [],
-    lastTime: null
-};
+let data = {};
+
+const fs = require('fs');
+
+const writeData = () => {
+  fs.writeFile('data.json', JSON.stringify(data), () => {
+    console.log("writing data");
+  });
+}
+
+const readData = ()  => {
+  fs.readFile('data.json', (err, rawData) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("reading data");
+      data = JSON.parse(rawData);
+      console.log(data);
+    }
+  });
+}
 
 /* GET users listing. */
 router.get('/', (req, res, next) => {
@@ -64,6 +79,20 @@ const getLastVisId = () => {
 const updateLastTime = (time) => {
   data.lastUpdated = new Date();
   data.lastTime = time;
+  writeData();
+}
+
+if (fs.existsSync("data.json")) {
+  console.log("file found");
+  readData();
+} else {
+  data = {
+    lastUpdated: new Date(),
+    visitorTimes: [],
+    proTimes: [],
+    lastTime: null
+  }
+  writeData();
 }
 
 module.exports = router;

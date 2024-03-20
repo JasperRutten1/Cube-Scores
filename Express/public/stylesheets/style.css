@@ -8,14 +8,14 @@ a {
 }
 
 html, body{
-  height: 95%;
+  height: 92%;
   display: block;
 }
 
 #overview {
   display: grid;
   grid-template-columns: 50% 50%;
-  grid-template-rows: 80% 20%;
+  grid-template-rows: 75% 25%;
   height: 100%;
 }
 
