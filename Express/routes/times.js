@@ -41,6 +41,8 @@ router.post('/add', (req, res, next) => {
 })
 
 router.get('/overview', (req, res, next) => {
+    sortArray(data.visitorTimes);
+    sortArray(data.proTimes)
   res.render('overview', {
     title: "Overview", 
     data: data

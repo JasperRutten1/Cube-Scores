@@ -3,7 +3,7 @@ extends layout
 block content
   #overview
     #reg-comp
-      h2= "Visitors League"
+      h2#Visitors= "Visitors League"
       table
         tr
           th= "Naam"
@@ -15,7 +15,7 @@ block content
             td= `${time.age}`
             td= `${time.display}`
     #pro-comp
-      h2= "Pro League"
+      h2= "Pro League (WCA)"
       table
         tr
           th= "Naam"
@@ -30,10 +30,12 @@ block content
       h2= "Laatst toegevoegd:"
       if data.lastTime != null
         table#last
+          #firstrow  
           tr
             th= "Naam"
             th= "Leeftijd"
             th= "Tijd"
+          #lastEntry
           tr 
             td= `${data.lastTime.firstName} ${data.lastTime.lastName}`
             td= `${data.lastTime.age}`

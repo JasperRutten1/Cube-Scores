@@ -1,27 +1,25 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
 }
 
-html, body{
-  height: 92%;
-  display: block;
+html, body {
+    height: 92%;
+    display: block;
+    background-image: linear-gradient(180deg, #FF0000, #FF00FF);
 }
 
 #overview {
-  display: grid;
-  grid-template-columns: 50% 50%;
-  grid-template-rows: 75% 25%;
-  height: 100%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 75% 25%;
+    height: 98%;
 }
 
-#overview div{
-  border: 0.3rem solid black;
-}
 
 #pro-comp, #reg-comp {
   display: flex;
@@ -76,4 +74,32 @@ table#last{
 #submit input{
   width: 100%;
   font-size: 1.3rem;
+}
+
+#reg-comp {
+    background-image: linear-gradient(120deg, #FF9010, #E22800);
+}
+#pro-comp {
+    background-image: linear-gradient(60deg, #FF9010, #E22800);
+}
+#updates{
+    background-color:#500050;
+    color : white
+}
+#updates h2 {
+        font-size: 1rem;
+        line-height: 50%;
+    }
+
+th {
+    font-size: 0.8rem;
+}
+
+#last td {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+#reg-comp td{
+    font-size: 0.9rem;
 }
