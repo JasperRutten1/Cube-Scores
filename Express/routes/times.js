@@ -61,36 +61,30 @@ Internal functions
 
 const addTime = (time, firstName, lastName, age, pro) => {
   console.log(pro);
-  let timeObj = {
-    id: pro == "true" ? getLastProId() + 1 : getLastVisId() + 1,
+  data.times[getLastId() + 1] = {
+    id: getLastId() + 1,
     time: time,
     firstName: firstName,
     lastName: lastName,
-    age: age
+    age: age,
+    pro: pro
   }
-  addDisplayTime(timeObj);
-  if(pro == "true") data.proTimes.push(timeObj)
-  else data.visitorTimes.push(timeObj)
-  updateLastTime(timeObj);
-}
-
-const getLastProId = () => {
-  data.proTimes.length > 0 ? data.proTimes[data.proTimes.length - 1].id : 1
-}
-
-const getLastVisId = () => {
-  data.visitorTimes.length > 0 ? data.visitorTimes[data.visitorTimes.length - 1].id : 1
-}
-
-const updateLastTime = (time) => {
-  data.lastUpdated = new Date();
-  data.lastTime = time;
   writeData();
+}
+
+const getLastId = () => {
+  let id = 0;
+  runOnScores(score => {if(score.id > id) id = score.id;})
+  return id;
 }
 
 const sortArray = (array) => {
   let sorted = array.sort((a, b) => a.time-b.time);
   return sorted;
+}
+
+const runOnScores = (func) => {
+  Object.keys(data.times).forEach(func);
 }
 
 const addDisplayTime = (time) => {
@@ -109,8 +103,7 @@ if (fs.existsSync("data.json")) {
 } else {
   data = {
     lastUpdated: new Date(),
-    visitorTimes: [],
-    proTimes: [],
+    times: {},
     lastTime: null
   }
   writeData();
