@@ -1,44 +1,42 @@
 extends layout
 
 block content
-  #overview
-    #reg-comp
-      h2#Visitors= "Visitors League"
-      table
-        tr
-          th= "Naam"
-          th= "Leeftijd"
-          th= "Tijd"
-        each time in data.visitorTimes
-          tr 
-            td= `${time.firstName} ${time.lastName}`
-            td= `${time.age}`
-            td= `${time.display}`
-    #pro-comp
-      h2= "Pro League (WCA)"
-      table
-        tr
-          th= "Naam"
-          th= "Leeftijd"
-          th= "Tijd"
-        each time in data.proTimes
-          tr 
-            td= `${time.firstName} ${time.lastName}`
-            td= `${time.age}`
-            td= `${time.display}`
-    #updates
-      h2= "Laatst toegevoegd:"
-      if data.lastTime != null
-        table#last
-          #firstrow  
+  #container
+    #overview
+      #reg-comp
+        table
           tr
             th= "Naam"
             th= "Leeftijd"
             th= "Tijd"
-          #lastEntry
-          tr 
-            td= `${data.lastTime.firstName} ${data.lastTime.lastName}`
-            td= `${data.lastTime.age}`
-            td= `${data.lastTime.display}`
+          each time in visitors
+            tr 
+              td= `${time.firstName} ${time.lastName}`
+              td= `${time.age}`
+              td= `${time.display}`
+      #pro-comp
+        table
+          tr
+            th= "Naam"
+            th= "Leeftijd"
+            th= "Tijd"
+          each time in pros
+            tr 
+              td= `${time.firstName} ${time.lastName}`
+              td= `${time.age}`
+              td= `${time.display}`
+      #updates
+        if lastTime != null
+          table#last
+            #firstrow  
+            tr
+              th= "Naam"
+              th= "Leeftijd"
+              th= "Tijd"
+            #lastEntry
+            tr 
+              td= `${lastTime.firstName} ${lastTime.lastName}`
+              td= `${lastTime.age}`
+              td= `${lastTime.display}`
   script(type='text/javascript' src='/javascripts/script.js')
 

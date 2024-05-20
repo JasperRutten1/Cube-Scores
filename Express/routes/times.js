@@ -36,16 +36,16 @@ router.get('/', (req, res, next) => {
 
 router.post('/add', (req, res, next) => {
   console.log(req.body);
-  addTime(req.body.time, req.body.firstName, req.body.lastName, req.body.age, req.body.pro);
+  addTime(req.body.time, req.body.firstName, req.body.lastName, req.body.age, req.body.pro === "true" ? true : false);
   res.redirect('controller');
 })
 
 router.get('/overview', (req, res, next) => {
-    sortArray(data.visitorTimes);
-    sortArray(data.proTimes);
   res.render('overview', {
     title: "Overview", 
-    data: data
+    pros: getProTimes(),
+    visitors: getVisitorTimes(),
+    lastTime: data.lastTime
   });
 });
 
@@ -60,41 +60,87 @@ Internal functions
 */
 
 const addTime = (time, firstName, lastName, age, pro) => {
-  console.log(pro);
-  data.times[getLastId() + 1] = {
-    id: getLastId() + 1,
-    time: time,
-    firstName: firstName,
-    lastName: lastName,
-    age: age,
-    pro: pro
+  let foundScore = getUserScore(firstName, lastName, age);
+  if(foundScore){
+    if(time < foundScore.time){
+      console.log("edditing existing score!");
+      data.times[foundScore.id].time = time;
+      data.times[foundScore.id].setTime = new Date();
+      data.times[foundScore.id].display = getDisplayTime(time);
+      data.lastTime = data.times[foundScore.id];
+    }
+    else{
+      console.log("new time is slower, not updating!")
+    }
+  }
+  else{
+    console.log("adding new score!");
+    let newId = getLastId() + 1
+    data.times[newId] = {
+      id: newId,
+      time: time,
+      firstName: firstName,
+      lastName: lastName,
+      age: age,
+      pro: pro,
+      setTime: new Date(),
+      display: getDisplayTime(time)
+    }
+    data.lastTime = data.times[newId];
   }
   writeData();
 }
 
 const getLastId = () => {
-  let id = 0;
-  runOnScores(score => {if(score.id > id) id = score.id;})
-  return id;
+  let highestId = 0;
+  for(let id of Object.keys(data.times)){
+    let intId = parseInt(id);
+    if(intId > highestId) highestId = intId;
+  }
+  return highestId;
 }
 
-const sortArray = (array) => {
+const getUserScore = (firstName, lastName, age) => {
+  for(let id of Object.keys(data.times)){
+    let score = data.times[id];
+    if(score.firstName === firstName && score.lastName === lastName, score.age === age) return score;
+  }
+  return null;
+}
+
+const getVisitorTimes = () => {
+  let times = [];
+  for(let id of Object.keys(data.times)){
+    let score = data.times[id];
+    if(score.pro == false) times.push(score);
+  }
+  console.log(`visitors: ${times.length}`);
+  return sortArrayByTime(times);
+}
+
+const getProTimes = () => {
+  let times = [];
+  for(let id of Object.keys(data.times)){
+    let score = data.times[id];
+    if(score.pro == true) times.push(score);
+  }
+  console.log(`pros: ${times.length}`);
+  return sortArrayByTime(times);
+}
+
+const sortArrayByTime = (array) => {
   let sorted = array.sort((a, b) => a.time-b.time);
   return sorted;
 }
 
-const runOnScores = (func) => {
-  Object.keys(data.times).forEach(func);
-}
-
-const addDisplayTime = (time) => {
-  let totalSeconds = Math.floor(time.time / 1000);
+const getDisplayTime = (time) => {
+  let totalSeconds = Math.floor(time / 1000);
   let minutes = Math.floor(totalSeconds / 60);
   let seconds = totalSeconds % 60;
-  let milliseconds = time.time % 1000;
+  let milliseconds = time % 1000;
 
-  if(minutes > 0) time.display = `${minutes}:${seconds}.${milliseconds}`
-  else time.display = `${seconds}.${milliseconds}`
+  if(minutes > 0) return `${minutes}:${seconds}.${milliseconds}`
+  else return `${seconds}.${milliseconds}`
 }
 
 if (fs.existsSync("data.json")) {
