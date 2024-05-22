@@ -40,6 +40,19 @@ router.post('/add', (req, res, next) => {
   res.redirect('controller');
 })
 
+router.post('/edit', (req, res, next) => {
+  console.log(req.body);
+  editTime(
+    parseInt(
+      req.body.id
+    ),
+    req.body.newAge, 
+    req.body.newTime, 
+    req.body.newPro
+  );
+  res.redirect('controller');
+})
+
 router.get('/overview', (req, res, next) => {
   res.render('overview', {
     title: "Overview", 
@@ -50,7 +63,10 @@ router.get('/overview', (req, res, next) => {
 });
 
 router.get('/controller', (req, res, next) => {
-  res.render('controller', {title: "Controller"});
+  res.render('controller', {
+    title: "Controller",
+    times: data.times
+  });
 });
 
 /*
@@ -59,11 +75,23 @@ Internal functions
 ----------------------------
 */
 
+const editTime = (id, newAge, newTime, newPro) => {
+  if(data.times[id] == null){
+    console.log("could not find score");
+    return;
+  }
+  data.times[id].age = newAge;
+  data.times[id].time = newTime;
+  data.times[id].display = getDisplayTime(newTime);
+  data.times[id].pro = newPro === "true" ? true : false;
+  writeData();
+}
+
 const addTime = (time, firstName, lastName, age, pro) => {
   let foundScore = getUserScore(firstName, lastName, age);
   if(foundScore){
     if(time < foundScore.time){
-      console.log("edditing existing score!");
+      console.log("editing existing score!");
       data.times[foundScore.id].time = time;
       data.times[foundScore.id].setTime = new Date();
       data.times[foundScore.id].display = getDisplayTime(time);
@@ -136,8 +164,10 @@ const sortArrayByTime = (array) => {
 const getDisplayTime = (time) => {
   let totalSeconds = Math.floor(time / 1000);
   let minutes = Math.floor(totalSeconds / 60);
-  let seconds = totalSeconds % 60;
-  let milliseconds = time % 1000;
+  let seconds = `${totalSeconds % 60}`;
+  if(seconds.length < 2) seconds = "0" + seconds;
+  let milliseconds = `${time % 1000}`;
+  while(milliseconds.length < 3) milliseconds = "0" + milliseconds; 
 
   if(minutes > 0) return `${minutes}:${seconds}.${milliseconds}`
   else return `${seconds}.${milliseconds}`

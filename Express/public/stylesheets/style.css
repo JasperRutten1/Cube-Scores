@@ -16,7 +16,7 @@ body {
     background-image: url("../images/new_background.jpg");
     /* background-image: url("../images/target.jpg"); */
     background-size: 100vw 100vh;
-
+}
 a {
   color: #00B7FF;
 }
