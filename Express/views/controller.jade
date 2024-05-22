@@ -35,11 +35,11 @@ block content
         p="age"
         p="time"
         p="pro?"
-      each time in times 
+      each time in times
         form(action="/times/edit", method="post").edit-form
           .visible-forms
-            p=time.firstName 
-            p=time.lastName
+            input(type="text",value=time.firstName,name="firstName")
+            input(type="text",value=time.lastName,name="lastName")
             input(type="number",value=time.age,name="newAge")
             input(type="number",value=time.time,name="newTime")
             if time.pro === true 

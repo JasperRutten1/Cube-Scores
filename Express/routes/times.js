@@ -46,6 +46,8 @@ router.post('/edit', (req, res, next) => {
     parseInt(
       req.body.id
     ),
+    req.body.firstName,
+    req.body.lastName,
     req.body.newAge, 
     req.body.newTime, 
     req.body.newPro
@@ -75,15 +77,17 @@ Internal functions
 ----------------------------
 */
 
-const editTime = (id, newAge, newTime, newPro) => {
+const editTime = (id, firstName, lastName, age, time, pro) => {
   if(data.times[id] == null){
     console.log("could not find score");
     return;
   }
-  data.times[id].age = newAge;
-  data.times[id].time = newTime;
-  data.times[id].display = getDisplayTime(newTime);
-  data.times[id].pro = newPro === "true" ? true : false;
+  data.times[id].firstName = firstName;
+  data.times[id].lastName = lastName;
+  data.times[id].age = age;
+  data.times[id].time = time;
+  data.times[id].display = getDisplayTime(time);
+  data.times[id].pro = pro === "true" ? true : false;
   writeData();
 }
 

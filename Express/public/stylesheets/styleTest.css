@@ -168,6 +168,10 @@ td {
   grid-template-columns: 20% 20% 10% 20% 10% 20%;
 }
 
+.visible-forms input{
+  font-size: 1.1rem;
+}
+
 #edit-headers p{
   font-size: 1.3rem;
   justify-content: center;
