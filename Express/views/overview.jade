@@ -6,37 +6,39 @@ block content
       #reg-comp
         table
           tr
-            th= "Naam"
-            th= "Leeftijd"
-            th= "Tijd"
+            th= " "
+            th= "Age"
+            th.right= "Time"
           each time in visitors
             tr 
               td= `${time.firstName} ${time.lastName}`
               td= `${time.age}`
-              td= `${time.display}`
+              td.right= `${time.display}`
       #pro-comp
         table
           tr
-            th= "Naam"
-            th= "Leeftijd"
-            th= "Tijd"
+            th= " "
+            th= "Age"
+            th.right= "Time"
           each time in pros
             tr 
               td= `${time.firstName} ${time.lastName}`
               td= `${time.age}`
-              td= `${time.display}`
+              td.right= `${time.display}`
       #updates
         if lastTime != null
           table#last
             #firstrow  
             tr
-              th= "Naam"
-              th= "Leeftijd"
-              th= "Tijd"
+              th= " "
+              th.right= "Age"
+              th=  ''
+              th.right= "Time"
             #lastEntry
             tr 
               td= `${lastTime.firstName} ${lastTime.lastName}`
               td= `${lastTime.age}`
-              td= `${lastTime.display}`
+              td= ' '
+              td.right= `${lastTime.display}`
   script(type='text/javascript' src='/javascripts/script.js')
 
