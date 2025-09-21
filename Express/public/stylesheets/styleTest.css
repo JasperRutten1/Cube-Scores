@@ -127,7 +127,7 @@ th {
     font-family: sharp;
 }
 td {
-    font-size: 1.4rem;
+    font-size: 2rem;
     text-align: justify;
     font-weight: bold;
     line-height: 1.5rem;
@@ -135,7 +135,7 @@ td {
 
 #last td {
     font-family: sharpBig;
-    font-size: 1.9rem;
+    font-size: 2.5rem;
     font-weight: bold;
     /*text-align: justify;*/
     width: 100%;
@@ -156,11 +156,16 @@ td {
 }
 
 #edit-forms{
-  margin: 2rem 0 0 0;
+  margin: 1rem 0.5rem;
 }
 
 .invisible-forms{
   display: none;
+}
+
+#edit-container{
+  display: grid;
+  grid-template-columns: 90% 10% 
 }
 
 .visible-forms, #edit-headers{
@@ -168,8 +173,21 @@ td {
   grid-template-columns: 20% 20% 10% 20% 10% 20%;
 }
 
+#edit-headers{
+  margin: 0 10% 0 0;
+}
+
 .visible-forms input{
   font-size: 1.1rem;
+  border-radius: 0.25rem;
+}
+
+.delete-form input{
+  font-size: 1.1rem;
+  background-color: red;
+  color: white;
+  width: 100%;
+  border-radius: 0.25rem; 
 }
 
 #edit-headers p{

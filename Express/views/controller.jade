@@ -32,20 +32,25 @@ block content
       #edit-headers 
         p="First name"
         p="Last name"
-        p="age"
-        p="time"
-        p="pro?"
-      each time in times
-        form(action="/times/edit", method="post").edit-form
-          .visible-forms
-            input(type="text",value=time.firstName,name="firstName")
-            input(type="text",value=time.lastName,name="lastName")
-            input(type="number",value=time.age,name="newAge")
-            input(type="number",value=time.time,name="newTime")
-            if time.pro === true 
-              input(type="checkbox",value="true",name="newPro",checked)
-            else
-              input(type="checkbox",value="true",name="newPro")
-            input(type="submit",value="edit")
-          .invisible-forms
+        p="Age"
+        p="Time"
+        p="Pro?"  
+      #edit-container
+        each time in times
+          form(action="/times/edit", method="post").edit-form
+            .visible-forms
+              input(type="text",value=time.firstName,name="firstName")
+              input(type="text",value=time.lastName,name="lastName")
+              input(type="number",value=time.age,name="newAge")
+              input(type="number",value=time.time,name="newTime")
+              if time.pro === true 
+                input(type="checkbox",value="true",name="newPro",checked)
+              else
+                input(type="checkbox",value="true",name="newPro")
+              input(type="submit",value="edit")
+            .invisible-forms
+              input(type="hidden",value=time.id,name="id")
+          form(action="/times/delete", method="post").delete-form
             input(type="hidden",value=time.id,name="id")
+            input(type="submit",value="delete")
+          

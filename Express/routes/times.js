@@ -55,6 +55,12 @@ router.post('/edit', (req, res, next) => {
   res.redirect('controller');
 })
 
+router.post('/delete', (req, res, next) => {
+  console.log(req.body);
+  removeTime(parseInt(req.body.id));
+  res.redirect('controller');
+})
+
 router.get('/overview', (req, res, next) => {
   res.render('overview', {
     title: "Overview", 
@@ -67,7 +73,7 @@ router.get('/overview', (req, res, next) => {
 router.get('/controller', (req, res, next) => {
   res.render('controller', {
     title: "Controller",
-    times: data.times
+    times: getTimesAsArray().reverse()
   });
 });
 
@@ -88,6 +94,15 @@ const editTime = (id, firstName, lastName, age, time, pro) => {
   data.times[id].time = time;
   data.times[id].display = getDisplayTime(time);
   data.times[id].pro = pro === "true" ? true : false;
+  writeData();
+}
+
+const removeTime = (id) => {
+  if(data.times[id] == null){
+    console.log("could not find score");
+    return;
+  }
+  delete data.times[id];
   writeData();
 }
 
@@ -135,7 +150,7 @@ const getLastId = () => {
 const getUserScore = (firstName, lastName, age) => {
   for(let id of Object.keys(data.times)){
     let score = data.times[id];
-    if(score.firstName === firstName && score.lastName === lastName, score.age === age) return score;
+    if(score.firstName === firstName && score.lastName === lastName && score.age === age) return score;
   }
   return null;
 }
@@ -158,6 +173,14 @@ const getProTimes = () => {
   }
   console.log(`pros: ${times.length}`);
   return sortArrayByTime(times);
+}
+
+const getTimesAsArray = () => {
+  let times = [];
+  for(let id of Object.keys(data.times)){
+    times.push(data.times[id]);
+  }
+  return times;
 }
 
 const sortArrayByTime = (array) => {

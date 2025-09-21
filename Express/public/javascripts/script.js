@@ -1,1 +1,1 @@
-setTimeout(() => location.reload(), 20000);
+setTimeout(() => location.reload(), 5000);
